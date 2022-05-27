@@ -22,23 +22,6 @@ const App = () => {
     })
   }
 
-  //tmp
-  const GeoJSONData = {
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: {type: 'Point', coordinates: [-77.032, 38.913]},
-        properties: {title: 'Mapbox', description: 'Washington, D.C.'}
-      },
-      {
-        type: 'Feature',
-        geometry: {type: 'Point', coordinates: [-122.414, 37.776]},
-        properties: {title: 'Mapbox', description: 'San Francisco, California'}
-      }
-    ]
-  };
-
   // No use for this yet but this runs each re-render, here for learning reminder purposes
   useEffect(()=>{console.log("Use Effect (AKA: re-render triggered)")})
 
@@ -48,7 +31,6 @@ const App = () => {
       <Container fluid>
       <h1>DPSS Data Dashboard</h1>
       <DataSelectForm setCrimeRecords={setCrimeRecords}/>
-      <button onClick={pullData}>pull data</button>      
         <Row>
           <Col md={4} lg={4} xl={4}>
             <div id="sidebar">
@@ -57,7 +39,7 @@ const App = () => {
             </div>
           </Col>
           <Col md={8} lg={8} xl={8} style={{backgroundColor:"red"}}>
-            <Row> <Map geoJSData={GeoJSONData} incidentData={crimeRecords}/> </Row>
+            <Row> <Map incidentData={crimeRecords}/> </Row>
           </Col>
         </Row>
         

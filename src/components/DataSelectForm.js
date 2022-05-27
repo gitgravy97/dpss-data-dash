@@ -28,10 +28,20 @@ const DataSelectForm = (props) => {
     console.log(`NarrContains :: ${narrContains}`);
     */
     console.log("PullForm")
+
+    /*
     axios.get('http://localhost:3001/test').then(response=>{
       console.log(response.data);
       props.setCrimeRecords(response.data);
     })
+    */
+    if(targetDate){
+      axios.get(`http://localhost:3001/getdate/${targetDate}`).then(response =>{
+        console.log(response.data);
+        props.setCrimeRecords(response.data);
+      })
+    }
+
     console.log("EndPullForm")
   }
 

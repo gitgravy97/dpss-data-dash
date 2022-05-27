@@ -41,26 +41,6 @@ const Map = (props) => {
             center: [lng, lat],
             zoom: zoom
         });
-
-
-        //// add markers to map during initialization time
-        for (const feature of props.geoJSData.features) {
-            //// Set up a template for what each marker should look like ++ assign a className
-            const el = document.createElement('div');
-            el.className = 'marker';
-            //console.log(`Feature.Geometry.Coordinates: ${feature.geometry.coordinates}`);
-
-            //// make a marker for each feature and add to the map
-            new mapboxgl.Marker(el)
-                .setLngLat(feature.geometry.coordinates)
-                .setPopup(
-                    new mapboxgl.Popup({offset:25}).setHTML(
-                        `<h3>${feature.properties.title}</h3>
-                        <p>${feature.properties.description}</p>`
-                    )
-                )
-                .addTo(map.current);
-        }
     });
 
     return(

@@ -1,6 +1,5 @@
 // DotEnv will let us access the .env file containing env variables
 require('dotenv').config()
-console.log(process.env.TEST)
 
 // Set up Express
 const express = require("express")
@@ -16,7 +15,6 @@ app.use(cors())
 // Set up Mongo connection
 const username = process.env.MONGO_USER;
 const password = process.env.MONGO_PASS;
-console.log(username, password)
 // "Replace myFirstDatabase with the name of the database that connections will use by default"
 // code chunk pulled from MongoDB Atlas --> UMich DPSS Data --> Overview tab --> Connect button
 const uri = `mongodb+srv://${username}:${password}@umich-dpss-data.7otst.mongodb.net/CrimeLog?retryWrites=true&w=majority`;
@@ -25,9 +23,6 @@ const uri = `mongodb+srv://${username}:${password}@umich-dpss-data.7otst.mongodb
 
 mongoose.connect(uri)
 
-// MONGOOSE. WHY. WHY ARE YOU LIKE THIS. 
-// ISODATE NEEDS TO BE ASSIGNED AS A STRING? WTF? IF DATE IS A STRING DOES IT BEHAVE EQUIV TO ISODATE? CAN WE JUST YEET ISODATE?
-// https://stackoverflow.com/questions/51967893/date-query-works-in-mongo-shell-but-not-from-node
 const recordSchema = new mongoose.Schema({
   id: String,
   date : Date, 
@@ -85,7 +80,9 @@ app.get("/attemptdate", async (request,response) => {
   })
 })
 
-app.get("/date/:YYYY/:MM/:DD", async (request,response) => {
+/*
+// Should this just take the raw YYYY-MM-DD? Does splitting it accomplish anything?
+app.get("/getDate/:YYYY/:MM/:DD", async (request,response) => {
   Record.find({isoDate: {
     "$gte": new Date(`${request.params.YYYY}-${request.params.MM}-${request.params.DD}T00:00:00.000Z`),
     "$lte": new Date(`${request.params.YYYY}-${request.params.MM}-${request.params.DD}T23:59:00.000Z`) 
@@ -97,6 +94,22 @@ app.get("/date/:YYYY/:MM/:DD", async (request,response) => {
     response.send(result)
   })
 })
+*/
+
+
+app.get("/getDate/:datestr", async (request,response) => {
+  Record.find({isoDate: {
+    "$gte": new Date(`${request.params.datestr}T00:00:00.000Z`),
+    "$lte": new Date(`${request.params.datestr}T23:59:00.000Z`) 
+  }}).then(result => {
+    console.log(`${request.params.datestr}`)
+
+    console.log(result)
+    console.log(result.length)
+    response.send(result)
+  })
+})
+
 
 app.get("/", (request,response) => {
 	response.send("<h1>Hello World</h1>")
