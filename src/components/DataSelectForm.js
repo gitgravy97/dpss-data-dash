@@ -35,13 +35,20 @@ const DataSelectForm = (props) => {
       props.setCrimeRecords(response.data);
     })
     */
-    if(targetDate){
-      axios.get(`http://localhost:3001/getdate/${targetDate}`).then(response =>{
-        console.log(response.data);
+
+    if(targetDate && targetEndDate){
+      axios.get(`http://localhost:3001/getdate/${targetDate}/${targetEndDate}`).then(response =>{
+        console.log("date-span trigger:", response.data);
         props.setCrimeRecords(response.data);
       })
+    } else if (targetDate){
+      axios.get(`http://localhost:3001/getdate/${targetDate}`).then(response =>{
+        console.log("single-date trigger:", response.data);
+        props.setCrimeRecords(response.data);
+      })
+    } else{
+      console.log("non-query trigger");
     }
-
     console.log("EndPullForm")
   }
 

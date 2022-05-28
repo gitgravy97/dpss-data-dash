@@ -42,10 +42,7 @@ const App = () => {
             <Row> <Map incidentData={crimeRecords}/> </Row>
           </Col>
         </Row>
-        
-
       </Container>
-
     </div>
   );
 }

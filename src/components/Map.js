@@ -21,9 +21,7 @@ const Map = (props) => {
                     new mapboxgl.Marker(el)
                         .setLngLat([incident.longitude,incident.latitude])
                         .setPopup(
-                            new mapboxgl.Popup({offset:25}).setHTML(
-                                `<h3>${incident.description}</h3><p>${incident.narrative}</p>`
-                            )
+                            new mapboxgl.Popup({offset:25}).setHTML(`<h3>${incident.description}</h3><p>${incident.narrative}</p>`)
                         )
                         .addTo(map.current)
                 }
@@ -43,8 +41,6 @@ const Map = (props) => {
         });
     });
 
-    return(
-        <div ref={mapContainer} className="map-container" />
-    )
+    return(<div ref={mapContainer} className="map-container" />)
 }
 export default Map

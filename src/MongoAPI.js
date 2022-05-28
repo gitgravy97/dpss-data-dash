@@ -102,10 +102,25 @@ app.get("/getDate/:datestr", async (request,response) => {
     "$gte": new Date(`${request.params.datestr}T00:00:00.000Z`),
     "$lte": new Date(`${request.params.datestr}T23:59:00.000Z`) 
   }}).then(result => {
-    console.log(`${request.params.datestr}`)
+    console.log(`DateStr: ${request.params.datestr}`)
 
     console.log(result)
     console.log(result.length)
+    response.send(result)
+  })
+})
+
+app.get("/getDate/:fromdate/:todate", async (request,response) => {
+  Record.find({isoDate: {
+    "$gte": new Date(`${request.params.fromdate}T00:00:00.000Z`),
+    "$lte": new Date(`${request.params.todate}T23:59:00.000Z`) 
+  }}).then(result => {
+    console.log(`FromStr: ${request.params.fromdate}`)
+    console.log(`ToStr: ${request.params.todate}`)
+
+    console.log(result)
+    console.log(result.length)
+    
     response.send(result)
   })
 })
